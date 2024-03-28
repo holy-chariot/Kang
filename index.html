@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="kor">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D card</title>
+
+    <style>
+        body {
+            background-image: url(https://postfiles.pstatic.net/20160114_255/mjj9_14527652879704PWi7_JPEG/%C4%BB%B0%C5%B7%E71.jpg?type=w3&jopt=2);
+        }
+
+        .container {
+            width: 240px;
+            height: 360px;
+
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 100px;
+        }
+
+        .overlay {
+            width: 230px;
+            height: 360px;
+            position: absolute;
+            border-radius: 5%;
+
+            background: linear-gradient(105deg, transparent 30%, green 45%, purple 50%, transparent 55%);
+            filter: brightness(1.1) opacity(0.1);
+            mix-blend-mode: color-dodge;
+            background-size: 150% 150%;
+            background-position: 100%;
+            transition: all 0.1s;
+        }
+
+        .card {
+            width: 240px;
+            height: 360px;
+            background-image: url(https://i.namu.wiki/i/apDANaeRbcO7odFYMLgfCZFQ61EMucY-_O28rncS3yrpDOMuvxy6nVH2AjXWEFDpccgqpJXrotkdG7eMwP4wS1_QOzPPicaHgQ2phQ4A0wEQ5DFLFA8UtsdgVWayLIQtlSxZ7Nz6kTBJM1LgnIDfMw.webp);
+            background-position: center;
+            background-size: cover;
+            border-radius: 5%;
+            transition: all 0.1s;
+            box-shadow: 0 8px 16px rgb(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body style="background-color: black;">
+    <div class="container">
+        <div class="overlay"></div>
+        <div class="card"></div>
+    </div>
+
+    <script>
+        var container = document.querySelector('.container');
+        var overlay = document.querySelector('.overlay');
+
+        container.addEventListener('mousemove', function (e) {
+            var x = e.offsetX;
+            var y = e.offsetY;
+            console.log(x, y);
+
+            var rotatex = 50 / 360 * y - 30;
+            var rotatey = -50 / 240 * x + 30;
+
+            overlay.style = `background-position: ${x / 5 + y / 5}%`;
+            container.style = `transform: perspective(350px) rotateX(${rotatex}deg) rotateY(${rotatey}deg)`;
+        });
+
+        container.addEventListener('mouseout', function () {
+            overlay.style = 'filter: opacity(0)';
+            container.style = 'transform: rotateX(0deg) rotateY(0deg)';
+            container.style.transition = 'transform 1s ease';
+        });
+    </script>
+
+</body>
+
+</html>
